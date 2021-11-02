@@ -5,9 +5,10 @@ from mesa.datacollection import DataCollector
 import networkx as nx
 from mesa.space import NetworkGrid
 import random
+import math
 
 # Quantidade de projetos Iniciais para a alocacao em areas de pesquisa
-projetos = 10
+projetos = 1
 
 '''
 Classe para a geracao da visualizacao baseado nos atributos e metodos dos agentes.
@@ -64,12 +65,13 @@ class ProjectAgent(Agent):
         self.projects = 0       # Quantidade de projeto
 
     def setprojects(self):
-        global projetos         # Pega a relacao de quantos projetos existem ate o momento
-        self.projects += random.randint(1, projetos*self.edges)    # Incrementa relacionando com a quantidade de ligacoes que possui
+        global projetos        
+        #Incrementa a quantidade de projetos de acordo com o numero de ligacoes que possui  
+        self.projects += math.ceil(random.randint(1, projetos*self.edges) / 9) 
 
     def getprojects(self):
-        return self.projects    # Retorna o valor dos projetos
+        return self.projects    # Retorna o quantitativo de projetos
 
     def step(self):
         global projetos
-        self.setprojects()      # Chama a funcao de incremento de projetos a cada step.
+        self.setprojects()      # Chama a funcao de incremento de projetos a cada step
