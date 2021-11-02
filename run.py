@@ -1,3 +1,5 @@
-from boltzmann_wealth_model_network.server import server
+from Projetos_Model.server import server
+from Projetos_Model import simulation
 
-server.launch()
+simulation.getData() # Criacao do csv da simulação.
+server.launch() # Abertura do server para visualização.
