@@ -68,11 +68,13 @@ class ProjectAgent(Agent):
 
     def setprojects(self):
         global projetos        
-        #Incrementa a quantidade de projetos de acordo com o numero de ligacoes que possui
+        # Incrementa a quantidade de projetos de acordo com o numero de ligacoes que possui
         aux = 0
+        # Soma o numero de projetos de cada area de conhecimento ligada a area atual
         for i in range(self.edges):
             aux += self.model.schedule.agents[self.areas[i]].getprojects()
 
+        # O numero de projetos da area depende do numero de areas relacionadas e a soma feita anteriormente
         self.projects += math.ceil(random.randint(1, (projetos*self.edges)+ math.ceil(aux*0.2))/9)
 
     def getprojects(self):
