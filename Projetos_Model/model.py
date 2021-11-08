@@ -19,11 +19,12 @@ class AreaNetwork(Model):
         self.G = nx.erdos_renyi_graph(n=0, p=0.5)
         self.grid = NetworkGrid(self.G)
         self.schedule = RandomActivation(self)
+        list_ids = [[1,3,2,4], [0,6,7], [0,3,8], [0,2], [0,5], [4], [1], [1], [2]]
         list_areas = [4, 3, 3, 2, 2, 1, 1, 1, 1]
-
+        
         # cria os agentes
         for i in range(self.num_agents):
-            a = ProjectAgent(i, self, list_areas[i])
+            a = ProjectAgent(i, self, list_areas[i],list_ids[i])
             self.schedule.add(a)
 
         # Retorna os valores dos projetos de cada area
@@ -59,15 +60,20 @@ Areas de conhecimento sendo tratadas como agentes.
 '''
 
 class ProjectAgent(Agent):
-    def __init__(self, unique_id, model, edges):
+    def __init__(self, unique_id, model, edges, areas):
         super().__init__(unique_id, model)               
         self.edges = edges      # Relacoes entre projetos
+        self.areas = areas
         self.projects = 0       # Quantidade de projeto
 
     def setprojects(self):
         global projetos        
-        #Incrementa a quantidade de projetos de acordo com o numero de ligacoes que possui  
-        self.projects += math.ceil(random.randint(1, projetos*self.edges) / 9) 
+        #Incrementa a quantidade de projetos de acordo com o numero de ligacoes que possui
+        aux = 0
+        for i in range(self.edges):
+            aux += self.model.schedule.agents[self.areas[i]].getprojects()
+
+        self.projects += math.ceil(random.randint(1, (projetos*self.edges)+ math.ceil(aux*0.2))/9)
 
     def getprojects(self):
         return self.projects    # Retorna o quantitativo de projetos

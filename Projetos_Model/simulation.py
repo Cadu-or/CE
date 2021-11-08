@@ -10,4 +10,4 @@ def getData():
         model.step()
 
     model_df = model.datacollector.get_model_vars_dataframe() # Coleta de dados para a construcao do dataframe
-    model_df.to_csv(path_or_buf="DataFrame.csv")                     # Criacao do arquivo CSV
+    model_df.to_csv(path_or_buf="DataFrame.csv")              # Criacao do arquivo CSV

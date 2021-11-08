@@ -81,7 +81,7 @@ def network_area(G):
     return areas
 
 # Definicao do grafo
-grid = NetworkModule(network_area, 500, 500, library="sigma")
+grid = NetworkModule(network_area, 500, 700, library="sigma")
 
 '''
 Declaração do grafico de linhas para demonstração do crescimento da produção
